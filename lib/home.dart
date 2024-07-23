@@ -7,7 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatefulWidget {
   final Function(bool) onThemeChanged;
-  HomeScreen({super.key, required this.onThemeChanged});
+  const HomeScreen({super.key, required this.onThemeChanged});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -58,7 +58,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void _deleteNote(int id) async {
     await QueryHelper.deleteNote(id);
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    // ignore: use_build_context_synchronously
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
       content: Text('Note has been deleted...!'),
     ));
     reloadNotes();
@@ -69,11 +70,13 @@ class _HomeScreenState extends State<HomeScreen> {
     if (noteCount > 0) {
       await QueryHelper.deleteAllNotes();
       reloadNotes();
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      // ignore: use_build_context_synchronously
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text('All notes have been deleted...!'),
       ));
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      // ignore: use_build_context_synchronously
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text('No notes to delete...!'),
       ));
     }
@@ -95,7 +98,7 @@ class _HomeScreenState extends State<HomeScreen> {
     }
     showModalBottomSheet(
         elevation: 1,
-        shape: RoundedRectangleBorder(
+        shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(bottom: Radius.circular(0))),
         isScrollControlled: true,
         context: context,
@@ -116,23 +119,23 @@ class _HomeScreenState extends State<HomeScreen> {
                         children: [
                           TextField(
                             controller: _noteTitlecontroller,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               border: OutlineInputBorder(),
                               hintText: 'Note Title',
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 5,
                           ),
                           TextField(
                             controller: _noteDescriptioncontroller,
                             maxLines: 5,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               border: OutlineInputBorder(),
                               hintText: 'Description',
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 5,
                           ),
                           Center(
@@ -146,6 +149,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   }
                                   _noteTitlecontroller.text = "";
                                   _noteDescriptioncontroller.text = "";
+                                  // ignore: use_build_context_synchronously
                                   Navigator.of(context).pop();
                                 },
                                 child: Text(
@@ -174,13 +178,13 @@ class _HomeScreenState extends State<HomeScreen> {
             onPressed: () async {
               _deleteAllNotes();
             },
-            icon: Icon(Icons.delete_forever_rounded),
+            icon: const Icon(Icons.delete_forever_rounded),
           ),
           IconButton(
             onPressed: () {
               _appExit();
             },
-            icon: Icon(Icons.exit_to_app),
+            icon: const Icon(Icons.exit_to_app),
           ),
           Transform.scale(
             scale: 0.5,
@@ -194,24 +198,24 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: SafeArea(
           child: _isloadingNote
-              ? Center(
+              ? const Center(
                   child: CircularProgressIndicator(),
                 )
               : ListView.builder(
                   itemCount: _allNotes.length,
                   itemBuilder: (context, index) => Card(
                     elevation: 7,
-                    margin: EdgeInsets.all(16.0),
+                    margin: const EdgeInsets.all(16.0),
                     child: ListTile(
                       title: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Expanded(
                             child: Padding(
-                              padding: EdgeInsets.symmetric(vertical: 5),
+                              padding: const EdgeInsets.symmetric(vertical: 5),
                               child: Text(
                                 _allNotes[index]['title'],
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 24,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -226,19 +230,19 @@ class _HomeScreenState extends State<HomeScreen> {
                                     showBottomSheetContent(
                                         _allNotes[index]['id']);
                                   },
-                                  icon: Icon(Icons.edit)),
+                                  icon: const Icon(Icons.edit)),
                               IconButton(
                                   onPressed: () {
                                     _deleteNote(_allNotes[index]['id']);
                                   },
-                                  icon: Icon(Icons.delete)),
+                                  icon: const Icon(Icons.delete)),
                             ],
                           )
                         ],
                       ),
                       subtitle: Text(
                         _allNotes[index]['description'],
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 20,
                         ),
                       ),
@@ -259,19 +263,19 @@ class _HomeScreenState extends State<HomeScreen> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('Exit App'),
-            content: Text('Are you want to exit the app.?'),
+            title: const Text('Exit App'),
+            content: const Text('Are you want to exit the app.?'),
             actions: [
               OutlinedButton(
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  child: Text("Cancel")),
+                  child: const Text("Cancel")),
               OutlinedButton(
                   onPressed: () {
                     SystemNavigator.pop();
                   },
-                  child: Text('Exit')),
+                  child: const Text('Exit')),
             ],
           );
         });
