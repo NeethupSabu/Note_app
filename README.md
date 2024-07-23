@@ -4,7 +4,8 @@ A new Flutter project.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+*Notes app creation using SQLite
+*Enabling the Feature of Darkmode,Add note,delete note etc...
 
 A few resources to get you started if this is your first Flutter project:
 
